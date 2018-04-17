@@ -1,6 +1,5 @@
 package com.springsun.compareultimate.controller;
 
-import com.springsun.compareultimate.model.PixelYX;
 import com.springsun.compareultimate.model.Rectangles;
 import com.springsun.compareultimate.model.SetOfPixels;
 import com.springsun.compareultimate.model.SetOfSets;
@@ -76,13 +75,6 @@ public class HandlePixels {
                         if (pixelsOfResult[y + 1][x] == 0)
                         pixelsOfResult[y + 1][x] = -2;
                     }
-//                    if ((x > 0 && x < width - 1) && (y > 0 && y < height - 1)){
-//                        pixelsOfResult[y - 1][x - 1] = -2;
-//                        pixelsOfResult[y - 1][x + 1] = -2;
-//                        pixelsOfResult[y + 1][x - 1] = -2;
-//                        pixelsOfResult[y + 1][x + 1] = -2;
-//                    }
-
                 }
             }
         }
@@ -95,15 +87,18 @@ public class HandlePixels {
         for (int y = 0; y < height; y++){
             for (int x = 0; x < width; x++){
                 if (pixelsOfResult[y][x] < 0){
-                    PixelYX pixelYX = new PixelYX(y, x);
+                    int pixelYToHandle = y;
+                    int pixelXToHandle = x;
                     if (!setOfSetsList.isEmpty()){
 
                         for (int i = 0; i < setOfSetsList.size(); i++){
                             SetOfPixels setOfPixels = setOfSetsList.get(i);
-                            List<PixelYX> setOfPixelsList = setOfPixels.getSetOfPixelsList();
-                            for (int j = 0; j < setOfPixelsList.size(); j++){
-                                PixelYX p = setOfPixelsList.get(j);
-                                if ((abs(y - p.getY()) < marginOfPixelSet) && (abs(x - p.getX()) < marginOfPixelSet)){
+                            List<Integer> pixelYList = setOfPixels.getPixelYList();
+                            List<Integer> pixelXList = setOfPixels.getPixelXList();
+                            for (int j = 0; j < pixelYList.size(); j++){
+                                int pixelY = pixelYList.get(j);
+                                int pixelX = pixelXList.get(j);
+                                if ((abs(y - pixelY) < marginOfPixelSet) && (abs(x - pixelX) < marginOfPixelSet)){
                                     needToBeAddToCurrentSet = true;
                                     indexOfSetList.add(i);
                                     index = i;
@@ -112,17 +107,17 @@ public class HandlePixels {
                             }
                         }
                         if (needToBeAddToCurrentSet){
-                            setOfSetsList.get(index).addPixel(pixelYX);
+                            setOfSetsList.get(index).addPixel(pixelYToHandle, pixelXToHandle);
                         } else {
                             SetOfPixels sPixels = new SetOfPixels();
-                            sPixels.addPixel(pixelYX);
+                            sPixels.addPixel(pixelYToHandle, pixelXToHandle);
                             setOfSets.addSetOfPixels(sPixels);
                         }
                         needToBeAddToCurrentSet = false;
                         indexOfSetList.clear();
                     } else { //Create first set
                         SetOfPixels setOfPixels = new SetOfPixels();
-                        setOfPixels.addPixel(pixelYX);
+                        setOfPixels.addPixel(pixelYToHandle, pixelXToHandle);
                         setOfSets.addSetOfPixels(setOfPixels);
                     }
                 }
@@ -137,18 +132,14 @@ public class HandlePixels {
     }
 
     private void sortYX(SetOfPixels setOfPixels){
-        int length = setOfPixels.getSetOfPixelsList().size();
+        int length = setOfPixels.getPixelYList().size();
         //Creating arrays of Y and X, than sort them to find min and max values
         int[] arrayY = new int[length];
         int[] arrayX = new int[length];
-        int i = 0;
-        for (PixelYX p : setOfPixels.getSetOfPixelsList()){
-            arrayY[i] = p.getY();
-            arrayX[i] = p.getX();
-            i++;
+        for (int i = 0; i < length; i++){
+            arrayY[i] = setOfPixels.getPixelYList().get(i);
+            arrayX[i] = setOfPixels.getPixelXList().get(i);
         }
-        System.out.println("arrayY = " + Arrays.toString(arrayY));
-        System.out.println("arrayX = " + Arrays.toString(arrayX) + "\n");
         Arrays.sort(arrayY);
         Arrays.sort(arrayX);
         setOfPixels.setMinY(arrayY[0]);
@@ -166,7 +157,6 @@ public class HandlePixels {
             int minX = setOfPixels.getMinX();
             int maxY = setOfPixels.getMaxY();
             int maxX = setOfPixels.getMaxX();
-            System.out.println("minY = " + minY + " minX = " + minX + "\nmaxY = " + maxY + "maxX = " + maxX + "\n");
 
             for (int x = minX; x <= maxX; x++){
                 resultRectangles[minY][x] = -1;

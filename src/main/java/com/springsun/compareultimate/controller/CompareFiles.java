@@ -21,11 +21,13 @@ public class CompareFiles {
         int[] pixelOne = new int[4];
         int[] pixelTwo = new int[4];
         boolean pixelsAreDifferent;
+
         // creates the save directory if it does not exists
         File fileSaveDir = new File(savePath);
         if (!fileSaveDir.exists()) {
             fileSaveDir.mkdir();
         }
+
         resultFileName = CreateUniqueFileName.getName(resultFileName, savePath);
         String pathToFileAsString = savePath + File.separator + resultFileName;
         FilesToCompare filesToCompare = FilesToCompare.getInstance();
@@ -46,11 +48,13 @@ public class CompareFiles {
         int resultWidth = bufferedImageOne.getWidth();
         HandlePixels handlePixels = new HandlePixels(new int[resultHeight][resultWidth], resultHeight, resultWidth);
         for (int y = 0; y < resultHeight; y++){
-            if (y >= bufferedImageTwo.getHeight()) {
+            if (y >= bufferedImageTwo.getHeight()) { //if imageOne has a large height then imageTwo,
+                // the difference in the gap will not be compared
                 continue;
             }
             for (int x = 0; x < resultWidth; x++){
-                if (x >= bufferedImageTwo.getWidth()){
+                if (x >= bufferedImageTwo.getWidth()){ //if imageOne has a large width than imageTwo,
+                    // the difference in the gap will not be compared
                     continue;
                 }
                 pixelsAreDifferent = ComparePixels.areTheyDifferent(writableRasterOne.getPixel(x, y, pixelOne),

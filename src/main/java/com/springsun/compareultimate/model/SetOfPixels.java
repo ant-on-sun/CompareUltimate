@@ -5,7 +5,8 @@ import java.util.List;
 
 public class SetOfPixels {
 
-    private List<PixelYX> setOfPixelsList;
+    private List<Integer> pixelYList;
+    private List<Integer> pixelXList;
     private int minY;
     private int minX;
     private int maxY;
@@ -46,18 +47,21 @@ public class SetOfPixels {
 
 
     public SetOfPixels(){
-        setOfPixelsList = new ArrayList<>();
+        pixelYList = new ArrayList<>();
+        pixelXList = new ArrayList<>();
     }
 
-    public void addPixel(PixelYX pixelYX){
-        setOfPixelsList.add(pixelYX);
+    public void addPixel(int y, int x){
+        pixelYList.add(y);
+        pixelXList.add(x);
     }
 
-//    public PixelYX getPixelYX(int i){
-//        return setOfPixelsList.get(i);
-//    }
-
-    public List<PixelYX> getSetOfPixelsList() {
-        return setOfPixelsList;
+    public List<Integer> getPixelYList() {
+        return pixelYList;
     }
+
+    public List<Integer> getPixelXList() {
+        return pixelXList;
+    }
+
 }

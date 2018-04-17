@@ -1,7 +1,6 @@
 package com.springsun.compareultimate.view;
 
 import com.springsun.compareultimate.model.FilesToCompare;
-import com.springsun.compareultimate.model.IteratorValue;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -24,8 +23,6 @@ public class DisplayImageOne extends HttpServlet {
         // You might want to change the mapping to /images/*.jpg if it's giving problems
         response.setContentType("image/jpeg");
         ServletOutputStream servletOutputStream = response.getOutputStream();
-        //int i = IteratorValue.getInstance().getIteratorValue();
-        System.out.println("in DisplayImageOne i = " + 0);
         FileInputStream fileInputStream = new FileInputStream(filesToCompare.getPathToFileList().get(0));
         BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
         BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(servletOutputStream);

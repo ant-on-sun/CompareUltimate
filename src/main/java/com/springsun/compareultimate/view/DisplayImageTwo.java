@@ -23,7 +23,6 @@ public class DisplayImageTwo extends HttpServlet {
         // You might want to change the mapping to /images/*.jpg if it's giving problems
         response.setContentType("image/jpeg");
         ServletOutputStream servletOutputStream = response.getOutputStream();
-        //int i = IteratorValue.getInstance().getIteratorValue();
         System.out.println("in DisplayImageTwo i = " + 1);
         FileInputStream fileInputStream = new FileInputStream(filesToCompare.getPathToFileList().get(1));
         BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
