@@ -1,6 +1,10 @@
 package com.springsun.compareultimate.model;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class Rectangles {
+    final static Logger logger = LogManager.getLogger(Rectangles.class);
 
     static {
         instance = new Rectangles();
@@ -11,6 +15,7 @@ public class Rectangles {
 
     public void setRectangles(int[][] rectangles) {
         this.rectangles = rectangles;
+        logger.info("Rectangles have been set");
     }
 
     public int[][] getRectangles() {

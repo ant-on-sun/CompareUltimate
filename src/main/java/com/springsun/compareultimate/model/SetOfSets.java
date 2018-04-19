@@ -2,8 +2,11 @@ package com.springsun.compareultimate.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class SetOfSets {
+    final static Logger logger = LogManager.getLogger(SetOfSets.class);
 
     static {
         instance = new SetOfSets();
@@ -30,5 +33,6 @@ public class SetOfSets {
 
     public void clear(){
         setOfSetsList.clear();
+        logger.info("SetOfSets has been cleared");
     }
 }

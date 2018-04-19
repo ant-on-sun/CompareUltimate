@@ -3,16 +3,17 @@ package com.springsun.compareultimate.controller;
 import com.springsun.compareultimate.model.FilesToCompare;
 import com.springsun.compareultimate.model.Rectangles;
 import com.springsun.compareultimate.model.ResultOfComparing;
-import com.springsun.compareultimate.model.SetOfSets;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class CompareFiles {
+    final static Logger logger = LogManager.getLogger(CompareFiles.class);
     private static final String SAVE_DIR = "result";
 
     public static void compareThem(String appDirectory){
@@ -38,7 +39,8 @@ public class CompareFiles {
             bufferedImageOne = ImageIO.read(new File(filesToCompare.getPathToFileList().get(0)));
             bufferedImageTwo = ImageIO.read(new File(filesToCompare.getPathToFileList().get(1)));
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.warn("Can't read image to buffered image. IOException: ", e);
+            //e.printStackTrace();
         }
         WritableRaster writableRasterOne = bufferedImageOne.getRaster();
         WritableRaster writableRasterTwo = bufferedImageTwo.getRaster();
@@ -84,7 +86,8 @@ public class CompareFiles {
         try {
             ImageIO.write(bufferedImageOne, "png", resultFile);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.warn("Can't write image to result file at path: " + pathToFileAsString + "\nOIException: ", e);
+            //e.printStackTrace();
         }
         resultOfComparing.setFileName(resultFileName).setPathToFile(pathToFileAsString);
     }

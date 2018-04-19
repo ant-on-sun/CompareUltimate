@@ -11,8 +11,11 @@ import java.util.List;
 import static java.lang.Integer.max;
 import static java.lang.Math.abs;
 import static java.lang.Math.min;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class HandlePixels {
+    final static Logger logger = LogManager.getLogger(HandlePixels.class);
 
     private int[][] pixelsOfResult;
     private int height;
@@ -78,6 +81,7 @@ public class HandlePixels {
                 }
             }
         }
+        logger.trace("In HandlePixels spreadingAreasOfPixels()");
     }
 
     private void createSetsOfPixels(){
@@ -123,6 +127,7 @@ public class HandlePixels {
                 }
             }
         }
+        logger.trace("In HandlePixels createSetsOfPixels()");
     }
 
     private void processMinMaxValuesInSets(){
@@ -146,7 +151,7 @@ public class HandlePixels {
         setOfPixels.setMinX(arrayX[0]);
         setOfPixels.setMaxY(arrayY[length - 1]);
         setOfPixels.setMaxX(arrayX[length - 1]);
-
+        logger.trace("In HandlePixels sortYX()");
     }
 
     private void getRectangles(){
@@ -167,6 +172,7 @@ public class HandlePixels {
                 resultRectangles[y][maxX] = -1;
             }
         }
+        logger.trace("In HandlePixels getRectangles()");
     }
 
     private void mergeNeighbors(){
@@ -201,13 +207,14 @@ public class HandlePixels {
                     s.setMaxY(max(currentMaxY, maxY));
                     setOfPixels.setMaxX(max(currentMaxX, maxX));
                     s.setMaxX(max(currentMaxX, maxX));
-                    setsToRemove.add(j);
+                    setsToRemove.add(i);
                 }
             }
         }
         for (int i = 0; i < setsToRemove.size(); i++){
-//            setOfSetsList.remove(setsToRemove.get(i));
-//            System.out.println("SetOfPixels with index = " + setsToRemove.get(i) + " has been removed");
+            setOfSetsList.remove(setsToRemove.get(i));
+            logger.trace("In HandlePixels mergeNeighbors(). SetOfPixels with index = " + setsToRemove.get(i)
+                    + " has been removed");
         }
     }
 }

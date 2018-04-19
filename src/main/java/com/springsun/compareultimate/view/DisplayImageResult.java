@@ -13,9 +13,12 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @WebServlet("/images/result")
 public class DisplayImageResult extends HttpServlet {
+    final static Logger logger = LogManager.getLogger(DisplayImageResult.class);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
@@ -34,5 +37,6 @@ public class DisplayImageResult extends HttpServlet {
         fileInputStream.close();
         bufferedOutputStream.close();
         servletOutputStream.close();
+        logger.info("Image result has been displayed");
     }
 }

@@ -6,12 +6,17 @@ import com.springsun.compareultimate.model.ResultOfComparing;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+@WebServlet("/Comparing")
 public class ResultServlet extends HttpServlet {
+    final static Logger logger = LogManager.getLogger(ResultServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
@@ -19,6 +24,7 @@ public class ResultServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
         CompareFiles.compareThem(request.getServletContext().getRealPath(""));
+        logger.info("Files have been compared");
 
         request.setAttribute("filesToCompare", FilesToCompare.getInstance());
         request.setAttribute("resultOfComparing", ResultOfComparing.getInstance());

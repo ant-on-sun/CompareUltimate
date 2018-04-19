@@ -16,8 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-@WebServlet(urlPatterns = "/UploadFile",
+@WebServlet(urlPatterns = {"/UploadFile", "/"},
             initParams = {
                 @WebInitParam(name = "allowedTypes", value = "jpg,jpeg,png")
             })
@@ -26,6 +28,9 @@ import java.io.IOException;
                  maxFileSize = 1024 * 1024 * 10,      // 10Mb (maximum size for a single upload file)
                  maxRequestSize = 1024 * 1024 * 30)   // 30Mb (maximum size for a request)
 public class MainPageServlet extends HttpServlet {
+
+    final static Logger logger = LogManager.getLogger(MainPageServlet.class);
+
     /**
      * Name of the directory where uploaded files will be saved, relative to
      * the web application directory.
@@ -37,7 +42,7 @@ public class MainPageServlet extends HttpServlet {
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
-        System.out.println("In MainPageServlet doGet()");
+        logger.trace("In MainPageServlet doGet()");
 
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/mainpage.jsp");
         requestDispatcher.forward(request, response);
@@ -74,6 +79,7 @@ public class MainPageServlet extends HttpServlet {
                 FilesToCompare.getInstance().addPath(savePath + File.separator + fileName).addNewFileName(fileName);
             }
         }
+        logger.info("Files have been loaded");
         request.setAttribute("filesToCompare", FilesToCompare.getInstance());
         request.setAttribute("resultOfComparing", ResultOfComparing.getInstance());
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/Comparing.jsp");

@@ -12,9 +12,12 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @WebServlet("/images/1")
 public class DisplayImageTwo extends HttpServlet {
+    final static Logger logger = LogManager.getLogger(DisplayImageTwo.class);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
@@ -23,7 +26,6 @@ public class DisplayImageTwo extends HttpServlet {
         // You might want to change the mapping to /images/*.jpg if it's giving problems
         response.setContentType("image/jpeg");
         ServletOutputStream servletOutputStream = response.getOutputStream();
-        System.out.println("in DisplayImageTwo i = " + 1);
         FileInputStream fileInputStream = new FileInputStream(filesToCompare.getPathToFileList().get(1));
         BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
         BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(servletOutputStream);
@@ -35,5 +37,6 @@ public class DisplayImageTwo extends HttpServlet {
         fileInputStream.close();
         bufferedOutputStream.close();
         servletOutputStream.close();
+        logger.info("Image two has been displayed");
     }
 }

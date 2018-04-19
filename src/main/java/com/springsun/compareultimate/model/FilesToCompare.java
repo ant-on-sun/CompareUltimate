@@ -6,8 +6,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class FilesToCompare {
+    final static Logger logger = LogManager.getLogger(FilesToCompare.class);
 
     static {
         instance = new FilesToCompare();
@@ -57,7 +60,8 @@ public class FilesToCompare {
                 try {
                     Files.deleteIfExists(path);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    logger.warn("Can't delete file at path: " + path.toString() + " \nIOException: ", e);
+                    //e.printStackTrace();
                 }
             }
         }

@@ -12,9 +12,12 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @WebServlet("/images/0")
 public class DisplayImageOne extends HttpServlet {
+    final static Logger logger = LogManager.getLogger(DisplayImageOne.class);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
@@ -34,5 +37,6 @@ public class DisplayImageOne extends HttpServlet {
         fileInputStream.close();
         bufferedOutputStream.close();
         servletOutputStream.close();
+        logger.info("Image one has been displayed");
     }
 }

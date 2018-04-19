@@ -12,35 +12,18 @@
         Web Application for Image Comparing
     </description>
 
+
+    <!--
     <servlet>
         <servlet-name>MainPageServlet</servlet-name>
         <servlet-class>com.springsun.compareultimate.view.MainPageServlet</servlet-class>
-    </servlet>
-
-    <servlet>
-        <servlet-name>ResultServlet</servlet-name>
-        <servlet-class>com.springsun.compareultimate.view.ResultServlet</servlet-class>
-    </servlet>
-
-    <servlet>
-        <servlet-name>BackToMainServlet</servlet-name>
-        <servlet-class>com.springsun.compareultimate.view.BackToMainServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>MainPageServlet</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>ResultServlet</servlet-name>
-        <url-pattern>/Comparing</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>BackToMainServlet</servlet-name>
-        <url-pattern>/Main</url-pattern>
-    </servlet-mapping>
+    -->
 
 
     <welcome-file-list>

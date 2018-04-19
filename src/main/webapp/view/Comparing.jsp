@@ -19,8 +19,6 @@
             if (filesToCompare.getPathToFileList() != null && !filesToCompare.getPathToFileList().isEmpty()){
                 for (int i = 0; i < filesToCompare.getPathToFileList().size(); i++){
                     out.println("<img width=\"300\" src=\"/images/" + i + "\" alt=File" + (i + 1) + ">");
-                    System.out.println("In Comparing.jsp trying to load images to page. Load file " + (i + 1) +
-                    " with path = " + filesToCompare.getPathToFileList().get(i));
                 }
             }%>
         </div>
@@ -33,9 +31,7 @@
             <%ResultOfComparing resultOfComparing = (ResultOfComparing)request.getAttribute("resultOfComparing");
             if (!resultOfComparing.getFileName().equals("")){
                 out.println("<img width=\"300\" src=\"/images/result\" alt=Result>");
-            }
-
-            %>
+            }%>
         </div>
 
         <div class="w3-container w3-light-blue w3-opacity w3-left-align w3-padding">

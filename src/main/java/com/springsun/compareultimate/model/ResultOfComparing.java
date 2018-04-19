@@ -4,8 +4,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ResultOfComparing {
+    final static Logger logger = LogManager.getLogger(ResultOfComparing.class);
 
     static {
         instance = new ResultOfComparing();
@@ -53,7 +56,8 @@ public class ResultOfComparing {
         try {
             Files.deleteIfExists(path);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.warn("Can't delete result file in path: " + path.toString() + "\nIOException: ", e);
+            //e.printStackTrace();
         }
     }
 }
