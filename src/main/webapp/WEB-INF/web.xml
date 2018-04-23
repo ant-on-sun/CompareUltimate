@@ -12,19 +12,9 @@
         Web Application for Image Comparing
     </description>
 
-
-    <!--
-    <servlet>
-        <servlet-name>MainPageServlet</servlet-name>
-        <servlet-class>com.springsun.compareultimate.view.MainPageServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>MainPageServlet</servlet-name>
-        <url-pattern>/</url-pattern>
-    </servlet-mapping>
-    -->
-
+    <listener>
+        <listener-class>com.springsun.compareultimate.controller.SessionListener</listener-class>
+    </listener>
 
     <welcome-file-list>
         <welcome-file>mainpage.jsp</welcome-file>

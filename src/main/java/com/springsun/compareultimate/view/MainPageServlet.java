@@ -103,6 +103,8 @@ public class MainPageServlet extends HttpServlet {
         logger.info("Files have been loaded");
         request.setAttribute("filesToCompare", FilesToCompare.getInstance());
         request.setAttribute("resultOfComparing", ResultOfComparing.getInstance());
+        request.getSession().setAttribute("filesToCompare", FilesToCompare.getInstance());
+        request.getSession().setAttribute("resultOfComparing", ResultOfComparing.getInstance());
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/Comparing.jsp");
         requestDispatcher.forward(request, response);
 
