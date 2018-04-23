@@ -4,3 +4,4 @@ Web-service, based on java servlets and .jsp, for deploy in Tomcat. It compares 
 image with red rectangels that mark the difference between images.
 
 ![Alt text](ImageComparing1.JPG)
+![Alt text](ImageComparing2.JPG)
