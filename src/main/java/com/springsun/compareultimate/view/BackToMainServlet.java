@@ -23,6 +23,7 @@ public class BackToMainServlet extends HttpServlet {
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
+
         FilesToCompare filesToCompare = FilesToCompare.getInstance();
         if (filesToCompare.getFileNameList() != null && !filesToCompare.getFileNameList().isEmpty()){
             filesToCompare.clear();
@@ -39,7 +40,7 @@ public class BackToMainServlet extends HttpServlet {
             logger.info("Set of sets has been cleared");
         }
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/mainpage.jsp");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("mainpage.jsp");
         requestDispatcher.forward(request, response);
     }
 

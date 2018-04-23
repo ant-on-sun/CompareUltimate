@@ -1,6 +1,5 @@
 package com.springsun.compareultimate.view;
 
-import com.springsun.compareultimate.model.FilesToCompare;
 import com.springsun.compareultimate.model.ResultOfComparing;
 
 import javax.servlet.ServletException;

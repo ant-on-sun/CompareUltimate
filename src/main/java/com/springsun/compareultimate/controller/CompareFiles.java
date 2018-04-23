@@ -26,7 +26,7 @@ public class CompareFiles {
         // creates the save directory if it does not exists
         File fileSaveDir = new File(savePath);
         if (!fileSaveDir.exists()) {
-            fileSaveDir.mkdir();
+            fileSaveDir.mkdirs();
         }
 
         resultFileName = CreateUniqueFileName.getName(resultFileName, savePath);
@@ -90,5 +90,6 @@ public class CompareFiles {
             //e.printStackTrace();
         }
         resultOfComparing.setFileName(resultFileName).setPathToFile(pathToFileAsString);
+
     }
 }

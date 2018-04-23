@@ -6,6 +6,7 @@ import com.springsun.compareultimate.model.FilesToCompare;
 import com.springsun.compareultimate.model.ResultOfComparing;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebInitParam;
@@ -16,6 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
+
+import com.springsun.compareultimate.model.SetOfSets;
+import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -44,7 +48,23 @@ public class MainPageServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         logger.trace("In MainPageServlet doGet()");
 
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/mainpage.jsp");
+        FilesToCompare filesToCompare = FilesToCompare.getInstance();
+        if (filesToCompare.getFileNameList() != null && !filesToCompare.getFileNameList().isEmpty()){
+            filesToCompare.clear();
+            logger.info("Files have been removed from disk");
+        }
+        ResultOfComparing resultOfComparing = ResultOfComparing.getInstance();
+        if (resultOfComparing.getFileName() != ""){
+            resultOfComparing.clear();
+            logger.info("Result file has been removed from disk");
+        }
+        SetOfSets setOfSets = SetOfSets.getInstance();
+        if (!setOfSets.getSetOfSetsList().isEmpty()){
+            setOfSets.clear();
+            logger.info("Set of sets has been cleared");
+        }
+
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("mainpage.jsp");
         requestDispatcher.forward(request, response);
     }
 
@@ -55,15 +75,16 @@ public class MainPageServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         FilesToCompare.getInstance().clear();
 
-        // gets absolute path of the web application:
-        String appPath = request.getServletContext().getRealPath("");
+        // gets absolute path of the directory user works in:
+        String appDirectory = System.getProperty("user.home") + File.separator + "ImageComparing" + File.separator;
+
         // constructs path of the directory to save uploaded file
-        String savePath = appPath + SAVE_DIR;
+        String savePath = appDirectory + SAVE_DIR;
 
         // creates the save directory if it does not exists
         File fileSaveDir = new File(savePath);
         if (!fileSaveDir.exists()) {
-            fileSaveDir.mkdir();
+            fileSaveDir.mkdirs();
         }
 
         for (Part part : request.getParts()) {

@@ -11,7 +11,7 @@ public class ExtractFileName {
     final static Logger logger = LogManager.getLogger(ExtractFileName.class);
 
     public static String getNameFromPart(Part part){
-        part.getContentType();
+        //part.getContentType();
         String contentDisp = part.getHeader("content-disposition");
         String[] items = contentDisp.split(";");
         for (String s : items) {
